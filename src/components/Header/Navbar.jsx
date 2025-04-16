@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Image } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { NavLink } from "react-router-dom"; // Import NavLink
+import { FiX } from "react-icons/fi"; // Custom icons
+import { NavLink } from "react-router-dom";
 import squareLogo from "../../assets/images/Logo.png";
+import burger from "../../assets/images/burger.png";
 
 const NavbarComponent = () => {
+  const [expanded, setExpanded] = useState(false); // Toggle state
+
   return (
     <div style={{ borderBottom: "1px solid #232323" }}>
-      <Navbar expand="lg">
+      <Navbar expand="lg" expanded={expanded}>
         <Container style={{ padding: "0" }}>
           <Navbar.Brand href="#">
             <div className="d-flex align-items-center">
@@ -21,102 +25,72 @@ const NavbarComponent = () => {
                   rounded
                 />
               </div>
-              <div className="">
+              <div>
                 <p style={{ fontWeight: "500", marginBottom: "0px" }}>
                   SquareUp
                 </p>
               </div>
             </div>
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbarScroll" />
+
+          {/* CUSTOM TOGGLE BUTTON */}
+          <Navbar.Toggle
+            aria-controls="navbarScroll"
+            onClick={() => setExpanded(!expanded)}
+            children={
+              expanded ? (
+                <FiX size={24} style={{ color: "#9eff00" }} />
+              ) : (
+                // <FiMenu size={24} color="#9eff00" />
+                <Image src={burger} />
+              )
+            }
+            style={{
+              border: "none",
+              background: "transparent",
+              boxShadow: "none",
+            }}
+          />
+
           <Navbar.Collapse id="navbarScroll">
             <Nav className="mx-auto my-2 my-lg-0">
-              <NavLink
-                to="/" // Change href to to
-                className="nav-link" // Add nav-link class
-                style={({ isActive }) => ({
-                  color: "#fafafa",
-                  background: isActive ? "#262626" : "transparent",
-                  margin: "0px 10px",
-                  borderRadius: "10px",
-                  padding: "12px 20px",
-                  textDecoration: "none",
-                })}
-              >
-                Home
-              </NavLink>
-              <NavLink
-                to="/services" // Change href to to
-                className="nav-link"
-                style={({ isActive }) => ({
-                  color: "#fafafa",
-                  background: isActive ? "#262626" : "transparent",
-                  margin: "0px 10px",
-                  borderRadius: "10px",
-                  padding: "10px 15px",
-                  textDecoration: "none",
-                })}
-              >
-                Services
-              </NavLink>
-              <NavLink
-                to="/work"
-                className="nav-link"
-                style={({ isActive }) => ({
-                  color: "#fafafa",
-                  background: isActive ? "#262626" : "transparent",
-                  margin: "0px 10px",
-                  borderRadius: "10px",
-                  padding: "10px 15px",
-                  textDecoration: "none",
-                })}
-              >
-                Work
-              </NavLink>
-              <NavLink
-                to="/process"
-                className="nav-link"
-                style={({ isActive }) => ({
-                  color: "#fafafa",
-                  background: isActive ? "#262626" : "transparent",
-                  margin: "0px 10px",
-                  borderRadius: "10px",
-                  padding: "10px 15px",
-                  textDecoration: "none",
-                })}
-              >
-                Process
-              </NavLink>
-              <NavLink
-                to="/about"
-                className="nav-link"
-                style={({ isActive }) => ({
-                  color: "#fafafa",
-                  background: isActive ? "#262626" : "transparent",
-                  margin: "0px 10px",
-                  borderRadius: "10px",
-                  padding: "10px 15px",
-                  textDecoration: "none",
-                })}
-              >
-                About
-              </NavLink>
-              <NavLink
-                to="/careers"
-                className="nav-link"
-                style={({ isActive }) => ({
-                  color: "#fafafa",
-                  background: isActive ? "#262626" : "transparent",
-                  margin: "0px 10px",
-                  borderRadius: "10px",
-                  padding: "10px 15px",
-                  textDecoration: "none",
-                })}
-              >
-                Careers
-              </NavLink>
+              {[
+                "/",
+                "/services",
+                "/work",
+                "/process",
+                "/about",
+                "/careers",
+              ].map((route, index) => {
+                const labels = [
+                  "Home",
+                  "Services",
+                  "Work",
+                  "Process",
+                  "About",
+                  "Careers",
+                ];
+                return (
+                  <NavLink
+                    key={route}
+                    to={route}
+                    className="nav-link"
+                    style={({ isActive }) => ({
+                      color: "#fafafa",
+                      background: isActive ? "#262626" : "transparent",
+                      margin: "0px 10px",
+                      borderRadius: "10px",
+                      padding: "10px 15px",
+                      textDecoration: "none",
+                    })}
+                    onClick={() => setExpanded(false)} // Close on link click
+                  >
+                    {labels[index]}
+                  </NavLink>
+                );
+              })}
             </Nav>
-            <div className="d-flex">
+            <div className="d-flex navbar_btn">
               <Button
                 style={{
                   background: "#9eff00",
@@ -125,6 +99,7 @@ const NavbarComponent = () => {
                   color: "#1e1e1e",
                   fontWeight: "500",
                 }}
+                onClick={() => setExpanded(false)} // Close on button click
               >
                 Contact
               </Button>

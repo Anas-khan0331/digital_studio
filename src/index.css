@@ -18,6 +18,15 @@
     min-height: 100vh !important;
   }
 
+  .navbar_btn {
+    padding: 0px 10px;
+  }
+
+  .navbar_btn button {
+    width: 100%;
+    border-radius: 0px;
+  }
+
   .mobile_span {
     padding: 10px !important;
     height: auto !important;
