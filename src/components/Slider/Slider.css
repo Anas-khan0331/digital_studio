@@ -1,0 +1,48 @@
+/* Slider.css */
+.slider-container {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.slider {
+    height: 100px;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.slide-track {
+    animation: scroll 40s linear infinite;
+    display: flex;
+    width: calc(250px * 14);
+}
+
+.slide {
+    height: 100px;
+    width: 250px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.slide img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    transition: filter 0.3s ease;
+}
+
+.slide:hover img {
+    filter: grayscale(0%) brightness(1);
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(calc(-250px * 7))
+    }
+}
